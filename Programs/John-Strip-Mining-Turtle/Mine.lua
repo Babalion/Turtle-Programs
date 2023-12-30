@@ -189,12 +189,12 @@ local function MultiMines()
 			turtle.dig()
 		end
 		if turtle.forward() then
-			MD_n = MD_n - 1
+			iMD = iMD - 1
 		end
 		if turtle.detectUp() then
 			turtle.digUp()
 		end
-	until MD_n == 0
+	until iMD == 0
 	if Way == 1 then
 		turtle.turnLeft()
 	else
@@ -211,7 +211,7 @@ end
 local function Restart()
 	TF = distance
 	TB = distance
-	MD_n = MD
+	iMD = MD
 	onlight = 0
 end
 

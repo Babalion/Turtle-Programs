@@ -57,6 +57,7 @@ local function Check()
 		Error=1
 	else
 		print("There is water")
+	end
 	repeat
 		if turtle.getFuelLevel() == "unlimited" then 
 			print("NO NEED FOR FUEL")

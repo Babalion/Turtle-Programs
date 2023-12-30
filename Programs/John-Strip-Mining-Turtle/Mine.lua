@@ -24,7 +24,8 @@ local onlight = 0 -- When to Place Torch
 local torch = turtle.getItemCount(1) -- How many items are in slot 1 (torch)
 local chest = turtle.getItemCount(2) -- How many items are in slot 2 (chest)
 local ItemFuel = turtle.getItemCount(3) -- How many items are in slot 3 (Fuel)
-local MD = 3 -- How Many Blocks Apart From Each Mine
+local waterBucket = turtle.getItemCount(5) -- How many items are in slot 5 (water bucket)
+local MD = 4 -- How Many Blocks Apart From Each Mine
 local MineTimes = 0 -- If Multi Mines Are ON then This will keep Count
 local Fuel = 0 -- if 2 then it is unlimited no fuel needed
 local NeedFuel = 0 -- If Fuel Need Then 1 if not Then 0
@@ -40,7 +41,7 @@ local function Check()
 		print("There are torch's in turtle")
 	end
 	if chest == 0 then
-		print("there are no chests")
+		print("There are no chests")
 		Error = 1
 	else
 		print("There are chest in turtle")
@@ -49,8 +50,13 @@ local function Check()
 		print("No Fuel Items")
 		Error = 1
 	else
-		print("there is fuel")
+		print("There is fuel")
 	end
+	if waterBucket == 0 then
+		print("There is no water bucket in slot 4")
+		Error=1
+	else
+		print("There is water")
 	repeat
 		if turtle.getFuelLevel() == "unlimited" then 
 			print("NO NEED FOR FUEL")
@@ -71,6 +77,7 @@ local function Recheck()
 	torch = turtle.getItemCount(1)
 	chest = turtle.getItemCount(2)
 	ItemFuel = turtle.getItemCount(3)
+	waterBucket = turtle.getItemCount(5)
 	Error = 0
 end
 
@@ -87,6 +94,12 @@ local function ForwardM()
 		if turtle.detectUp() then
 			turtle.digUp()
 		end
+		-- place water
+		turtle.select(5)
+		turtle.placeUp()
+		sleep(0.3) -- let water flow
+		turtle.placeUp()
+		-- place block down if there is no
 		turtle.select(4)
 		turtle.placeDown()
 		if onlight == 8 then -- Every 10 Block turtle place torch
@@ -104,18 +117,18 @@ local function ForwardM()
 				os.shutdown()
 			end
 		end
-		if turtle.getItemCount(16)>0 then -- If slot 16 in turtle has item slot 5 to 16 will go to chest
+		if turtle.getItemCount(16)>0 then -- If slot 16 in turtle has item slot 6 to 16 will go to chest
 			if chest > 0 then
 				turtle.select(2)
 				turtle.digDown()
 				turtle.placeDown()
 				chest = chest - 1
-				for slot = 5, 16 do
+				for slot = 6, 16 do
 					turtle.select(slot)
 					turtle.dropDown()
 					sleep(1.5)
 				end
-				turtle.select(5)
+				turtle.select(6)
 			else
 				print("turtle run out of chest")
 				os.shutdown()
@@ -175,12 +188,12 @@ local function MultiMines()
 			turtle.dig()
 		end
 		if turtle.forward() then
-			MD = MD - 1
+			MD_n = MD_n - 1
 		end
 		if turtle.detectUp() then
 			turtle.digUp()
 		end
-	until MD == 0
+	until MD_n == 0
 	if Way == 1 then
 		turtle.turnLeft()
 	else
@@ -197,7 +210,7 @@ end
 local function Restart()
 	TF = distance
 	TB = distance
-	MD = 3
+	MD_n = MD
 	onlight = 0
 end
 

@@ -26,6 +26,7 @@ local chest = turtle.getItemCount(2) -- How many items are in slot 2 (chest)
 local ItemFuel = turtle.getItemCount(3) -- How many items are in slot 3 (Fuel)
 local waterBucket = turtle.getItemCount(5) -- How many items are in slot 5 (water bucket)
 local MD = 4 -- How Many Blocks Apart From Each Mine
+local iMD = 4 -- iterator variable for MD
 local MineTimes = 0 -- If Multi Mines Are ON then This will keep Count
 local Fuel = 0 -- if 2 then it is unlimited no fuel needed
 local NeedFuel = 0 -- If Fuel Need Then 1 if not Then 0
